@@ -2,6 +2,10 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
+router.get('/', function (req, res) {
+  res.json({status:"success", message:"Welcome to Weather API"})
+})
+
 router.post("/getWeather", async (req, res) => {
   const { value } = await req.body;
   try {
