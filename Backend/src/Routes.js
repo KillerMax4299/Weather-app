@@ -12,7 +12,7 @@ router.post("/getWeather", async (req, res) => {
     const { data } = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.API_KEY}&units=metric`
     );
-
+    
     res.json(data);
     // res.json(response);
   } catch {
