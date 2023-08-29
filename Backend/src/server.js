@@ -12,4 +12,4 @@ const router = require('./Routes')
 app.use('', router)
 
 // console.log(process.env)
-app.listen(3000, console.log("\x1b[35mAPI server is up\x1b[0m"));
+app.listen(3000, console.log("\x1b[35mAPI server is http://localhost:3000\x1b[0m"));
