@@ -80,7 +80,9 @@ router.post("/testpost", async (req, res) => {
     ISO: sys.country,
     weather: weather,
     main: main
-  });
+  }); 
+  else 
+    res.json({cod:404,message:"city not found"})
 });
 
 module.exports = router;

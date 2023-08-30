@@ -1,27 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import Searchbar from "./Searchbar";
+import Searchres from "./Searchres";
 
-const WeatherUI = ({ data, code_list, debounce_val }) => {
-  const [country, setCountry] = useState("");
+const WeatherUI = () => {
+  const [search_val, setSearch_val] = useState("");
+  const [list, setList] = useState([]);
 
-  const { city, ISO, main, weather } = data;
+  
 
-  // const {description , icon} = weather
-
-  useEffect(() => {
-    const e = code_list.filter((e) => e.code == ISO);
-    e.length > 0
-      ? setCountry(e[0].title)
-      : e.length < 1 && "" != value && setCountry("");
-  }, [data]);
   return (
     <>
-      <h1 className="font-semibold text-2xl uppercase">
-        {city},{country}
-      </h1>
-      <img src={`/icons/${icon}.png`} alt="" />
-      {/* {description} */}
-      
+      <div className="flex justify-center relative p-8">
+        <Searchbar search_val={search_val} setSearch_val={setSearch_val} />
+        <Searchres
+          res={search_val}
+          temp={20}
+          setList={setList}
+          setSearch_val={setSearch_val}
+          list={list}
+        />
+      </div>
     </>
   );
 };
