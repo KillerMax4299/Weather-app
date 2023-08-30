@@ -3,21 +3,36 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Searchbar from "./Searchbar";
 import Searchres from "./Searchres";
+import useDebounce from "../Hooks/Usedebounce";
+
+// ! shy-puce-toad-tux.cyclic.cloud
 
 const WeatherUI = () => {
   const [search_val, setSearch_val] = useState("");
+  const debouncedValue = useDebounce(search_val, 600);
   const [list, setList] = useState([]);
+  const [data, setData] = useState(null);
 
-
-  
+  useEffect(() => {
+    if (search_val != "") {
+      axios
+        .post("http://localhost:3000/testpost", {
+          value: search_val,
+        })
+        .then(({ data}) => {
+          if (data.cod == 200) setData(data)
+          else if(data.cod == 404) setData(null)
+        });
+    }
+  }, [debouncedValue]);
 
   return (
     <>
       <div className="flex justify-center relative p-8">
         <Searchbar search_val={search_val} setSearch_val={setSearch_val} />
         <Searchres
-          res={search_val}
-          temp={20}
+          data={data}
+          setData={setData}
           setList={setList}
           setSearch_val={setSearch_val}
           list={list}

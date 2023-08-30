@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
 
-const Searchres = ({ res, temp, setList, setSearch_val,list }) => {
+const Searchres = ({ data, setData, setList, setSearch_val, list }) => {
   const [hidden, setHidden] = useState("hidden");
+  const [res, setRes] = useState("");
+  const [temp, setTemp] = useState(0);
+
+  useEffect(() => {
+    if (data != null) {
+      setRes(data.city);
+      setTemp(Math.trunc(data.main.temp));
+    } else { 
+      setRes("")
+    }
+  }, [data]);
 
   useEffect(() => {
     if (res.length > 0) setHidden("");
@@ -18,8 +29,9 @@ const Searchres = ({ res, temp, setList, setSearch_val,list }) => {
       <div className="w-full border rounded-md bg-white border-neutral-100 h-14 shadow-md px-6 flex items-center">
         <div
           onClick={() => {
-            setList([...list,res]);
+            setList([...list, res]);
             setSearch_val("");
+            setData(null)
           }}
           className="flex w-full justify-between text-neutral-400 hover:text-neutral-900 cursor-pointer transition-colors duration-100"
         >

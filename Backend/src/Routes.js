@@ -75,14 +75,15 @@ router.post("/testpost", async (req, res) => {
   const { name, sys, main, weather } = data_set;
   // console.log(value)
   if(value === 'chakdaha')
-  res.json({
+    res.json({
+    cod:200,
     city: name,
     ISO: sys.country,
     weather: weather[0],
     main: main
   }); 
   else 
-    res.status(404).json({cod:404,message:"city not found"})
+    res.json({cod:404,message:"city not found"})
 });
 
 module.exports = router;

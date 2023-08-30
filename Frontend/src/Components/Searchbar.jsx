@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MdSearch, MdClear } from "react-icons/md";
 import Searchres from "./Searchres";
 
+
 const Searchbar = ({ search_val, setSearch_val }) => {
   
   const [class_val, setClass_val] = useState("opacity-0");
