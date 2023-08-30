@@ -9,14 +9,14 @@ import useDebounce from "../Hooks/Usedebounce";
 
 const WeatherUI = () => {
   const [search_val, setSearch_val] = useState("");
-  const debouncedValue = useDebounce(search_val, 600);
+  const debouncedValue = useDebounce(search_val, 500);
   const [list, setList] = useState([]);
   const [data, setData] = useState(null);
 
   useEffect(() => {
     if (search_val != "") {
       axios
-        .post("http://localhost:3000/testpost", {
+        .post("http://localhost:3000/getWeather", {
           value: search_val,
         })
         .then(({ data}) => {

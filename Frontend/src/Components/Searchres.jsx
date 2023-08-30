@@ -4,11 +4,13 @@ const Searchres = ({ data, setData, setList, setSearch_val, list }) => {
   const [hidden, setHidden] = useState("hidden");
   const [res, setRes] = useState("");
   const [temp, setTemp] = useState(0);
+  const [ISO, setISO] = useState("")
 
   useEffect(() => {
     if (data != null) {
       setRes(data.city);
-      setTemp(Math.trunc(data.main.temp));
+      setTemp(Math.round(data.main.temp));
+      setISO(data.ISO)
     } else { 
       setRes("")
     }
@@ -35,7 +37,7 @@ const Searchres = ({ data, setData, setList, setSearch_val, list }) => {
           }}
           className="flex w-full justify-between text-neutral-400 hover:text-neutral-900 cursor-pointer transition-colors duration-100"
         >
-          <span>{res}</span>
+          <span>{res+', '+ISO}</span>
           <span>{temp + "°C"}</span>
         </div>
       </div>
