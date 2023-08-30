@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import Searchbar from "./Searchbar";
 import Searchres from "./Searchres";
@@ -6,6 +7,7 @@ import Searchres from "./Searchres";
 const WeatherUI = () => {
   const [search_val, setSearch_val] = useState("");
   const [list, setList] = useState([]);
+
 
   
 

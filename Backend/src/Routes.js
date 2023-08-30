@@ -78,7 +78,7 @@ router.post("/testpost", async (req, res) => {
   res.json({
     city: name,
     ISO: sys.country,
-    weather: weather,
+    weather: weather[0],
     main: main
   }); 
   else 
