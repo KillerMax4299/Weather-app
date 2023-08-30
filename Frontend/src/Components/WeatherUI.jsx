@@ -16,7 +16,7 @@ const WeatherUI = () => {
   useEffect(() => {
     if (search_val != "") {
       axios
-        .post("http://shy-puce-toad-tux.cyclic.cloud/getWeather", {
+        .post("https://shy-puce-toad-tux.cyclic.cloud/getWeather", {
           value: search_val,
         })
         .then(({ data }) => {
