@@ -82,7 +82,7 @@ router.post("/testpost", async (req, res) => {
     main: main
   }); 
   else 
-    res.json({cod:404,message:"city not found"})
+    res.status(404).json({cod:404,message:"city not found"})
 });
 
 module.exports = router;
