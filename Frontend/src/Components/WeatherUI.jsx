@@ -16,12 +16,12 @@ const WeatherUI = () => {
   useEffect(() => {
     if (search_val != "") {
       axios
-        .post("http://localhost:3000/getWeather", {
+        .post("http://shy-puce-toad-tux.cyclic.cloud/getWeather", {
           value: search_val,
         })
-        .then(({ data}) => {
-          if (data.cod == 200) setData(data)
-          else if(data.cod == 404) setData(null)
+        .then(({ data }) => {
+          if (data.cod == 200) setData(data);
+          else if (data.cod == 404) setData(null);
         });
     }
   }, [debouncedValue]);
