@@ -25,7 +25,7 @@ router.post("/getWeather", async (req, res) => {
 
     // res.json(response);
   } catch {
-    res.status(404).json({
+    res.json({
       cod: "404",
       message: "city not found",
     });

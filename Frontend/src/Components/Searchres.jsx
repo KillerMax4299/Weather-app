@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 
-const Searchres = ({ data, setData, setList, setSearch_val, list }) => {
+const Searchres = ({
+  data,
+  setData,
+  setList,
+  setSearch_val,
+  list,
+  citylist,
+  setCitylist,
+}) => {
   const [hidden, setHidden] = useState("hidden");
   const [res, setRes] = useState("");
   const [temp, setTemp] = useState(0);
-  const [ISO, setISO] = useState("")
+  const [ISO, setISO] = useState("");
 
   useEffect(() => {
     if (data != null) {
       setRes(data.city);
       setTemp(Math.round(data.main.temp));
-      setISO(data.ISO)
-    } else { 
-      setRes("")
+      setISO(data.ISO);
+    } else {
+      setRes("");
     }
   }, [data]);
 
@@ -20,6 +28,15 @@ const Searchres = ({ data, setData, setList, setSearch_val, list }) => {
     if (res.length > 0) setHidden("");
     else setHidden("hidden");
   }, [res]);
+
+  function handleClick() {
+    if (!citylist.includes(res)) {
+      setCitylist([...citylist, res]);
+      setList([...list,data])
+    }
+    setSearch_val("");
+    setData(null);
+  }
 
   return (
     <div
@@ -30,14 +47,10 @@ const Searchres = ({ data, setData, setList, setSearch_val, list }) => {
     >
       <div className="w-full border rounded-md bg-white border-neutral-100 h-14 shadow-md px-6 flex items-center">
         <div
-          onClick={() => {
-            setList([...list, res]);
-            setSearch_val("");
-            setData(null)
-          }}
+          onClick={handleClick}
           className="flex w-full justify-between text-neutral-400 hover:text-neutral-900 cursor-pointer transition-colors duration-100"
         >
-          <span>{res+', '+ISO}</span>
+          <span>{res + ", " + ISO}</span>
           <span>{temp + "°C"}</span>
         </div>
       </div>

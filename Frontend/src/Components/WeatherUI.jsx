@@ -4,24 +4,28 @@ import { useState, useEffect } from "react";
 import Searchbar from "./Searchbar";
 import Searchres from "./Searchres";
 import useDebounce from "../Hooks/Usedebounce";
+import Citylist from "./Citylist";
+import useLocalStorage from "../Hooks/UseLocalStorage"
 
-// ! shy-puce-toad-tux.cyclic.cloud
+// ! https://shy-puce-toad-tux.cyclic.cloud/getWeather
+// ! http://localhost:3000/getWeather
 
 const WeatherUI = () => {
   const [search_val, setSearch_val] = useState("");
-  const debouncedValue = useDebounce(search_val, 500);
-  const [list, setList] = useState([]);
+  const debouncedValue = useDebounce(search_val, 300);
+  const [list, setList] = useLocalStorage("list",[]);
+  const [citylist, setCitylist] = useLocalStorage("citylist",[])
   const [data, setData] = useState(null);
 
   useEffect(() => {
     if (search_val != "") {
       axios
-        .post("https://shy-puce-toad-tux.cyclic.cloud/getWeather", {
+        .post("http://localhost:3000/getWeather", {
           value: search_val,
         })
         .then(({ data }) => {
           if (data.cod == 200) setData(data);
-          else if (data.cod == 404) setData(null);
+          else setData(null);
         });
     }
   }, [debouncedValue]);
@@ -36,7 +40,10 @@ const WeatherUI = () => {
           setList={setList}
           setSearch_val={setSearch_val}
           list={list}
+          citylist={citylist}
+          setCitylist={setCitylist}
         />
+        <Citylist list={list}/>
       </div>
     </>
   );
