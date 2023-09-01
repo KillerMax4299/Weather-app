@@ -18,9 +18,28 @@ const WeatherUI = () => {
 
   function handleremove(val) {
     setCitylist(citylist.filter((e) => e != val));
-    setList(list.filter((e)=> e.city != val));
+    setList(list.filter((e) => e.city != val));
   }
-  function handleUpdate() {}
+  async function handleUpdate(e) {
+    const index = citylist.indexOf(e);
+    const arr = list;
+    await axios
+      .post("https://shy-puce-toad-tux.cyclic.cloud/getWeather", {
+        value: e,
+      })
+      .then((response) => {
+        arr[index] = response.data;
+        // console.log("updated");
+      });
+    setList(arr);
+  }
+
+  async function RefreshAll() {
+    for (const city of citylist) {
+      await handleUpdate(city);
+    }
+    console.log("everything refreshed");
+  }
 
   useEffect(() => {
     if (search_val != "") {
@@ -34,6 +53,11 @@ const WeatherUI = () => {
         });
     }
   }, [debouncedValue]);
+
+  useEffect(() => {
+    console.log("data updated")
+      
+  }, [list]);
 
   return (
     <>
@@ -52,7 +76,31 @@ const WeatherUI = () => {
           setSearch_val={setSearch_val}
           setData={setData}
         />
-        <Citylist list={list} handleremove={handleremove} />
+        {list.length > 1 ? (
+          <button
+            className="border-2 rounded-md px-2 mt-1 mx-4 border-blue-500 text-white bg-blue-600 active:opacity-80"
+            onClick={RefreshAll}
+          >
+            Refresh all
+          </button>
+        ) : (
+          <></>
+        )}
+        {list.length == 1 ? (
+          <button
+            className="border-2 rounded-md px-2 mt-1 mx-4 border-blue-500 text-white bg-blue-600 active:opacity-80"
+            onClick={RefreshAll}
+          >
+            Refresh
+          </button>
+        ) : (
+          <></>
+        )}
+        <Citylist
+          list={list}
+          handleremove={handleremove}
+          handleUpdate={handleUpdate}
+        />
       </div>
     </>
   );

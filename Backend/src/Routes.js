@@ -13,6 +13,17 @@ router.post("/getWeather", async (req, res) => {
       `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.API_KEY}&units=metric`
     );
     const { name, sys, main, weather, cod } = await data;
+
+    function formatCurrentDate() {
+    // console.log("date updated")
+    return new Date().toLocaleString("en-GB", {
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  }
     if (cod == 200)
       res.json({
         cod: cod,
@@ -20,6 +31,7 @@ router.post("/getWeather", async (req, res) => {
         ISO: sys.country,
         weather: weather[0],
         main: main,
+        time:formatCurrentDate()
       });
     else res.json({ cod: 404, message: "city not found" });
 

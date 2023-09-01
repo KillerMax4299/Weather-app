@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import City_component from "./city_component";
 
-const Citylist = ({ list, handleremove }) => {
+const Citylist = ({ list, handleremove, handleUpdate, RefreshAll }) => {
   // console.log(list.length);
 
   if (list.length > 0)
@@ -11,7 +11,11 @@ const Citylist = ({ list, handleremove }) => {
     transition-all duration-300"
       >
         {list.map((city) => (
-          <City_component citylist={city} handleremove={handleremove} />
+          <City_component
+            citylist={city}
+            handleremove={handleremove}
+            handleUpdate={handleUpdate}
+          />
         ))}
       </div>
     );
