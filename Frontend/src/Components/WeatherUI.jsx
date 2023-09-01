@@ -54,10 +54,6 @@ const WeatherUI = () => {
     }
   }, [debouncedValue]);
 
-  useEffect(() => {
-    console.log("data updated")
-      
-  }, [list]);
 
   return (
     <>
