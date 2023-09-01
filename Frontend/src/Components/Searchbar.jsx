@@ -3,7 +3,7 @@ import { MdSearch, MdClear } from "react-icons/md";
 import Searchres from "./Searchres";
 
 
-const Searchbar = ({ search_val, setSearch_val }) => {
+const Searchbar = ({ search_val, setSearch_val, setData }) => {
   
   const [class_val, setClass_val] = useState("opacity-0");
 
@@ -20,7 +20,7 @@ const Searchbar = ({ search_val, setSearch_val }) => {
 
   return (
     <>
-      <div className="flex relative bg-white text-2xl border-2 rounded-xl items-center xl:w-1/4 lg:w-1/3 w-full md:w-1/2 h-12 border-neutral-300 focus-within:border-neutral-400 transition-all duration-300">
+      <div className="flex bg-white text-2xl border-2 rounded-xl items-center xl:w-1/4 lg:w-1/3 w-full md:w-1/2 h-12 border-neutral-300 focus-within:border-neutral-400 transition-all duration-300">
         <label
           htmlFor="searchbar"
           className="text-neutral-400 mx-4 text-3xl cursor-pointer"
@@ -44,6 +44,7 @@ const Searchbar = ({ search_val, setSearch_val }) => {
           onClick={() => {
             setSearch_val("");
             setClass_val("opacity-0");
+            setData(null)
           }}
         >
           <MdClear />

@@ -42,7 +42,7 @@ const Searchres = ({
     <div
       className={
         hidden +
-        " capitalize absolute z-10 text-2xl px-8 md:px-4 lg:px-3 xl:px-2 rounded-xl mt-14 items-center xl:w-1/4 lg:w-1/3 w-full md:w-1/2 h-24 transition-all duration-300"
+        " capitalize absolute inset-y-0 mx-auto left-0 right-0 z-10 text-2xl px-8 md:px-4 lg:px-3 xl:px-2 rounded-xl mt-[5.2rem] items-center xl:w-1/4 lg:w-1/3 w-full md:w-1/2 h-24 transition-all duration-300"
       }
     >
       <div className="w-full border rounded-md bg-white border-neutral-100 h-14 shadow-md px-6 flex items-center">
