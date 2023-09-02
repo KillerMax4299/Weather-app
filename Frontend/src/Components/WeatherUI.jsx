@@ -95,7 +95,7 @@ const WeatherUI = () => {
         citylist={citylist}
         setCitylist={setCitylist}
       />
-      <div className="flex flex-col items-center justify-center relative p-8">
+      <div className="flex flex-col items-center justify-center relative p-4 md:p-8">
         <Searchbar
           search_val={search_val}
           setSearch_val={setSearch_val}
