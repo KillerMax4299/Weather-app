@@ -61,6 +61,9 @@ export default defineConfig({
         ],
         theme_color: "#a6a6a6",
       },
+      includeAssets: ["icons/*"],
+      registerType: "autoUpdate",
+      injectRegister: "auto"
     }),
   ],
 });
