@@ -46,7 +46,7 @@ const city_component = ({ citylist, handleremove, handleUpdate }) => {
       <span className="absolute flex flex-col justify-center items-center -top-2 right-8 text-center">
         <p className="translate-y-4 font-bold">{time}</p>
         <img
-          className="h-24 w-24 translate-y-2 translate-x-4 md:translate-x-0"
+          className="h-24 w-24 translate-y-2 translate-x-0"
           src={`/icons/${icon}.png`}
           alt=""
         />
