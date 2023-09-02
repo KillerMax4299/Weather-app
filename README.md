@@ -47,3 +47,7 @@ Weather ( POST request ) `/getWeather`
     "message": "city not found"
 }
 ```
+
+# WEATHER UI
+* Made with **React** and **TailwindCSS**
+* CustomHooks `useDebounce` and `useLocalStorage` are used from [usehooks.com](https://usehooks.com/)
