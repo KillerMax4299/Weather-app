@@ -12,26 +12,15 @@ router.post("/getWeather", async (req, res) => {
     const { data } = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${process.env.API_KEY}&units=metric`
     );
-    const { name, sys, main, weather, cod,dt,timezone } = await data;
+    const { name, sys, main, weather, cod } = await data;
 
-  //   function formatCurrentDate() {
-  //   // console.log("date updated")
-  //   return new Date((dt+timezone)*1000).toLocaleString("en-GB", {
-  //     day: "numeric",
-  //     month: "short",
-  //     hour: "numeric",
-  //     minute: "2-digit",
-  //     hour12: true,
-  //   });
-  // }
     if (cod == 200)
       res.json({
         cod: cod,
         city: name,
         ISO: sys.country,
         weather: weather[0],
-        main: main,
-        time:[dt,timezone]
+        main: main
       });
     else res.json({ cod: 404, message: "city not found" });
 

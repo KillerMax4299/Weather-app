@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Searchbar from "./Searchbar";
 import Searchres from "./Searchres";
-import useDebounce from "../Hooks/Usedebounce";
+import { useDebounce, useLocalStorage } from "@uidotdev/usehooks";
 import Citylist from "./Citylist";
-import useLocalStorage from "../Hooks/UseLocalStorage";
+import { MdRefresh } from "react-icons/md";
 
 // ! https://shy-puce-toad-tux.cyclic.cloud/getWeather
 // ! http://localhost:3000/getWeather
@@ -16,29 +16,50 @@ const WeatherUI = () => {
   const [citylist, setCitylist] = useLocalStorage("citylist", []);
   const [data, setData] = useState(null);
 
+  function formatCurrentDate() {
+    return new Date().toLocaleString("en-IN", {
+      day: "numeric",
+      month: "short",
+      hour: "numeric",
+      // second: "numeric",
+      minute: "2-digit",
+      hour12: !0,
+    });
+  }
+
   function handleremove(val) {
     setCitylist(citylist.filter((e) => e != val));
     setList(list.filter((e) => e.city != val));
   }
   async function handleUpdate(e) {
+    // console.log(e)
     const index = citylist.indexOf(e);
     const arr = list;
     await axios
       .post("https://shy-puce-toad-tux.cyclic.cloud/getWeather", {
         value: e,
       })
-      .then((response) => {
-        arr[index] = response.data;
+      .then(({ data }) => {
+        const { ISO, city, main, weather } = data;
+        const updatedData = {
+          ISO: ISO,
+          city: city,
+          main: main,
+          weather: weather,
+          time: formatCurrentDate(),
+        };
+        arr[index] = updatedData;
         // console.log("updated");
       });
     setList(arr);
+    // console.log(arr)
   }
 
   async function RefreshAll() {
     for (const city of citylist) {
       await handleUpdate(city);
     }
-    console.log("everything refreshed");
+    // console.log("everything refreshed");
   }
 
   useEffect(() => {
@@ -48,12 +69,20 @@ const WeatherUI = () => {
           value: search_val.trim(),
         })
         .then(({ data }) => {
-          if (data.cod == 200) setData(data);
-          else setData(null);
+          if (data.cod == 200) {
+            const { ISO, city, main, weather } = data;
+            const updatedData = {
+              ISO: ISO,
+              city: city,
+              main: main,
+              weather: weather,
+              time: formatCurrentDate(),
+            };
+            setData(updatedData);
+          } else setData(null);
         });
     }
   }, [debouncedValue]);
-
 
   return (
     <>
@@ -74,20 +103,12 @@ const WeatherUI = () => {
         />
         {list.length > 1 ? (
           <button
-            className="border-2 rounded-md px-2 mt-1 mx-4 border-blue-500 text-white bg-blue-600 active:opacity-80"
-            onClick={RefreshAll}
+            className="flex items-center border rounded-2xl hover:shadow-lg hover:-translate-y-[1px] transition-all duration-300 px-2 mt-1 mx-4 border-zinc-200 text-zinc-400 hover:text-zinc-600 bg-white active:opacity-80 font-semibold"
+            onClick={() => {
+              RefreshAll();
+            }}
           >
-            Refresh all
-          </button>
-        ) : (
-          <></>
-        )}
-        {list.length == 1 ? (
-          <button
-            className="border-2 rounded-md px-2 mt-1 mx-4 border-blue-500 text-white bg-blue-600 active:opacity-80"
-            onClick={RefreshAll}
-          >
-            Refresh
+            <MdRefresh /> Refresh all
           </button>
         ) : (
           <></>
