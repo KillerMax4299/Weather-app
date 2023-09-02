@@ -50,4 +50,4 @@ Weather ( POST request ) `/getWeather`
 
 # WEATHER UI
 * Made with **React** and **TailwindCSS**
-* CustomHooks `useDebounce`, `useLocalStorage` and `useNetworkStatus` are used from [usehooks.com](https://usehooks.com/)
+* CustomHooks [`useDebounce`](https://usehooks.com/usedebounce), [`useLocalStorage`](https://usehooks.com/uselocalstorage) and [`useNetworkStatus`](https://usehooks.com/usenetworkstate) are used from [usehooks.com](https://usehooks.com/)
